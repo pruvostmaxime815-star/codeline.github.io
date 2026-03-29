@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Illustration - Maison Lynz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /*  les galeries défilante. */
+        .gallery-scroll-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 3rem 0;
+            background: var(--black);
+        }
+        
+        .dark-section .gallery-scroll-wrapper {
+            background: var(--black-light);
+        }
+        
+        .gallery-scroll {
+            display: flex;
+            gap: 2rem;
+            animation: scroll-infinite 60s linear infinite;
+        }
+        
+        @keyframes scroll-infinite {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        .gallery-scroll img {
+            height: 280px;
+            width: auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+            transition: all 0.4s;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .gallery-scroll img:hover {
+            transform: scale(1.1) translateY(-15px);
+            box-shadow: 0 25px 80px rgba(212, 175, 55, 0.6);
+            border-color: var(--gold);
+            z-index: 10;
+            animation-play-state: paused;
+        }
+
+        .gallery-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Bouton discord .  */
+        .discord-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1.8rem 3.5rem;
+            background: linear-gradient(135deg, #5865F2 0%, #4752C4 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 50px rgba(88, 101, 242, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discord-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .discord-cta:hover::before {
+            left: 100%;
+        }
+
+        .discord-cta:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 70px rgba(88, 101, 242, 0.6);
+        }
+
+        .discord-cta i {
+            font-size: 2rem;
+            animation: bounce-icon 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce-icon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .discord-info {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .contact-section-discord {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, var(--black) 0%, var(--black-light) 100%);
+        }
+
+        .contact-content-discord {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .social-links-discord {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--gold);
+            transition: all 0.4s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: translateY(-8px) rotate(360deg);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000027-45eab45ead/logo%20maison%20lynz.webp?ph=310ce882a6" alt="Maison Lynz">
+                <span>Maison Lynz</span>
+            </a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#accueil" class="nav-link">Accueil</a></li>
+                
+                <li class="nav-dropdown">
+                    <a href="index.html#services" class="nav-link">
+                        Services <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="montage.html" class="dropdown-item">
+                            <i class="fas fa-video"></i>
+                            <div>
+                                <strong>Montage vidéo</strong>
+                                <span>Long & Court format</span>
+                            </div>
+                        </a>
+                        <a href="graphisme.html" class="dropdown-item">
+                            <i class="fas fa-palette"></i>
+                            <div>
+                                <strong>Graphisme</strong>
+                                <span>Miniatures, Bannières</span>
+                            </div>
+                        </a>
+                        <a href="illustration.html" class="dropdown-item">
+                            <i class="fas fa-brush"></i>
+                            <div>
+                                <strong>Illustration</strong>
+                                <span>3D, Motion design</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                
+                <li><a href="index.html#faq" class="nav-link">FAQ</a></li>
+                <li><a href="#contact" class="nav-link cta-nav">Contact</a></li>
+            </ul>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" style="min-height: 60vh; padding: 10rem 2rem 4rem;">
+        <div class="hero-bg">
+            <div class="particles" id="particles"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-brush"></i> Illustration
+            </div>
+            
+            <h1 style="font-size: clamp(2.5rem, 8vw, 5rem);">
+                Nos <span class="gradient-text">Illustrations</span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                Créations artistiques uniques - Motion design, 3D et illustrations
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="index.html" class="btn-secondary">
+                    <span><i class="fas fa-arrow-left"></i> Retour à l'accueil</span>
+                </a>
+                <a href="#contact" class="btn-primary">
+                    <span>Demander un devis</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="video-section">
+        <div class="container">
+            <div class="contact-content" style="grid-template-columns: 1fr 1fr; align-items: center;">
+                <div>
+                    <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(2rem, 4vw, 3rem); color: var(--gold); margin-bottom: 1.5rem;">
+                        Illustration, motion design, 3D...
+                    </h2>
+                    <p style="color: var(--gray); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                        D'autres services originaux sont mis à votre disposition. Que ce soit pour des illustrations personnalisées, du motion design captivant ou de la modélisation 3D, notre équipe transforme vos idées en créations visuelles uniques.
+                    </p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.7rem; padding: 0.8rem; background: rgba(212, 175, 55, 0.05); border-radius: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gold); font-size: 1.2rem;"></i>
+                            <span style="color: var(--white); font-size: 0.95rem;">Illustrations personnalisées</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.7rem; padding: 0.8rem; background: rgba(212, 175, 55, 0.05); border-radius: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gold); font-size: 1.2rem;"></i>
+                            <span style="color: var(--white); font-size: 0.95rem;">Motion design</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.7rem; padding: 0.8rem; background: rgba(212, 175, 55, 0.05); border-radius: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gold); font-size: 1.2rem;"></i>
+                            <span style="color: var(--white); font-size: 0.95rem;">Modélisation 3D</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.7rem; padding: 0.8rem; background: rgba(212, 175, 55, 0.05); border-radius: 10px;">
+                            <i class="fas fa-check-circle" style="color: var(--gold); font-size: 1.2rem;"></i>
+                            <span style="color: var(--white); font-size: 0.95rem;">Animations</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80" alt="Illustration 3D" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie Illustrations -->
+    <section class="gallery-section dark-section" style="padding: 5rem 0; overflow: hidden;">
+        <h2 class="gallery-title">
+            <i class="fas fa-brush"></i> Nos Illustrations
+        </h2>
+        <div class="gallery-scroll-wrapper">
+            <div class="gallery-scroll">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000093-5cce15cce3/450/users_cmhur6s4n03sopv019cty3crf_eKQ1ONiNPtUwuh5B-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000104-2bf492bf4b/450/users_cmhur6s4n03sopv019cty3crf_ZoTGEFs0I6jdgFNH-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000100-e8a7ae8a7c/450/users_cmhur6s4n03sopv019cty3crf_NoCFDW60X92ag65K-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000098-a7949a794a/450/users_cmhur6s4n03sopv019cty3crf_0Ol3I3Fu4rn17zYV-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000101-00d7800d7a/450/users_cmhur6s4n03sopv019cty3crf_UWY84z7f2HGCjnFQ-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000105-380dc380dd/450/users_cmhur6s4n03sopv019cty3crf_61hPGAkGSimyqZQs-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000106-c6f44c6f46/450/users_cmhur6s4n03sopv019cty3crf_heK0yFWG12St6ra9-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000107-4d7f74d7fa/700/users_cmhur6s4n03sopv019cty3crf_XTxjUVbeF4oRMLXS-image.webp?ph=310ce882a6" alt="Illustration">
+                <!-- Duplication pour boucle infinie -->
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000093-5cce15cce3/450/users_cmhur6s4n03sopv019cty3crf_eKQ1ONiNPtUwuh5B-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000104-2bf492bf4b/450/users_cmhur6s4n03sopv019cty3crf_ZoTGEFs0I6jdgFNH-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000100-e8a7ae8a7c/450/users_cmhur6s4n03sopv019cty3crf_NoCFDW60X92ag65K-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000098-a7949a794a/450/users_cmhur6s4n03sopv019cty3crf_0Ol3I3Fu4rn17zYV-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000101-00d7800d7a/450/users_cmhur6s4n03sopv019cty3crf_UWY84z7f2HGCjnFQ-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000105-380dc380dd/450/users_cmhur6s4n03sopv019cty3crf_61hPGAkGSimyqZQs-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000106-c6f44c6f46/450/users_cmhur6s4n03sopv019cty3crf_heK0yFWG12St6ra9-image.webp?ph=310ce882a6" alt="Illustration">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000107-4d7f74d7fa/700/users_cmhur6s4n03sopv019cty3crf_XTxjUVbeF4oRMLXS-image.webp?ph=310ce882a6" alt="Illustration">
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie Motion Design / 3D -->
+    <section class="gallery-section" style="padding: 5rem 0; overflow: hidden;">
+        <h2 class="gallery-title">
+            <i class="fas fa-cube"></i> Motion Design & 3D
+        </h2>
+        <div class="gallery-scroll-wrapper">
+            <div class="gallery-scroll">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000093-5cce15cce3/450/users_cmhur6s4n03sopv019cty3crf_eKQ1ONiNPtUwuh5B-image.webp?ph=310ce882a6" alt="3D">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000104-2bf492bf4b/450/users_cmhur6s4n03sopv019cty3crf_ZoTGEFs0I6jdgFNH-image.webp?ph=310ce882a6" alt="3D">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000100-e8a7ae8a7c/450/users_cmhur6s4n03sopv019cty3crf_NoCFDW60X92ag65K-image.webp?ph=310ce882a6" alt="3D">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000098-a7949a794a/450/users_cmhur6s4n03sopv019cty3crf_0Ol3I3Fu4rn17zYV-image.webp?ph=310ce882a6" alt="3D">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000101-00d7800d7a/450/users_cmhur6s4n03sopv019cty3crf_UWY84z7f2HGCjnFQ-image.webp?ph=310ce882a6" alt="3D">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000105-380dc380dd/450/users_cmhur6s4n03sopv019cty3crf_61hPGAkGSimyqZQs-image.webp?ph=310ce882a6" alt="3D">
+                <!-- Duplication -->
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000093-5cce15cce3/450/users_cmhur6s4n03sopv019cty3crf_eKQ1ONiNPtUwuh5B-image.webp?ph=310ce882a6" alt="3D">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000104-2bf492bf4b/450/users_cmhur6s4n03sopv019cty3crf_ZoTGEFs0I6jdgFNH-image.webp?ph=310ce882a6" alt="3D">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000100-e8a7ae8a7c/450/users_cmhur6s4n03sopv019cty3crf_NoCFDW60X92ag65K-image.webp?ph=310ce882a6" alt="3D">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000098-a7949a794a/450/users_cmhur6s4n03sopv019cty3crf_0Ol3I3Fu4rn17zYV-image.webp?ph=310ce882a6" alt="3D">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000101-00d7800d7a/450/users_cmhur6s4n03sopv019cty3crf_UWY84z7f2HGCjnFQ-image.webp?ph=310ce882a6" alt="3D">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000105-380dc380dd/450/users_cmhur6s4n03sopv019cty3crf_61hPGAkGSimyqZQs-image.webp?ph=310ce882a6" alt="3D">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Discord -->
+    <section id="contact" class="contact-section-discord">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Collaboration</span>
+                <h2>Prêt à faire décoller votre chaîne ?</h2>
+                <p class="section-description">
+                    Rejoignez notre serveur Discord et ouvrez un ticket pour démarrer votre projet
+                </p>
+            </div>
+            
+            <div class="contact-content-discord">
+                <a href="https://discord.com/channels/1447148639033233572/@home" target="_blank" class="discord-cta">
+                    <i class="fab fa-discord"></i>
+                    <span>Ouvrir un ticket Discord</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                
+                <p class="discord-info">
+                    <i class="fas fa-info-circle"></i> Cliquez pour rejoindre notre serveur et créer un ticket
+                </p>
+
+                <div class="social-links-discord">
+                    <a href="https://www.instagram.com/maisonlynz/" target="_blank" class="social-link" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@maisonlynz" target="_blank" class="social-link" title="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@MaisonLynz" target="_blank" class="social-link" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://x.com/LynzMaison20920" target="_blank" class="social-link" title="X (Twitter)">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    <a href="mailto:maisonlynzagency@gmail.com" class="social-link" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000027-45eab45ead/logo%20maison%20lynz.webp?ph=310ce882a6" alt="Logo">
+                        <span>Maison Lynz</span>
+                    </div>
+                    <p>© 2025 Maison Lynz - Tous droits réservés</p>
+                    <p class="footer-tagline">Design Graphique • Montage Vidéo • Création Visuelle</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Navigation</h4>
+                        <a href="index.html#accueil">Accueil</a>
+                        <a href="index.html#faq">FAQ</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Services</h4>
+                        <a href="graphisme.html">Graphisme</a>
+                        <a href="montage.html">Montage Vidéo</a>
+                        <a href="illustration.html">Illustration</a>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Réseaux</h4>
+                        <a href="https://www.instagram.com/maisonlynz/" target="_blank">Instagram</a>
+                        <a href="https://www.tiktok.com/@maisonlynz" target="_blank">TikTok</a>
+                        <a href="https://www.youtube.com/@MaisonLynz" target="_blank">YouTube</a>
+                        <a href="https://x.com/LynzMaison20920" target="_blank">X (Twitter)</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Créé avec passion par Maison Lynz</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

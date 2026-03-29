@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montage Vidéo - Maison Lynz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Vitrines statiques */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .showcase-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .showcase-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.5);
+            border-color: var(--gold);
+        }
+
+        .showcase-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: all 0.4s;
+        }
+
+        .showcase-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .showcase-item iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+
+        .showcase-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            opacity: 0;
+            transition: all 0.4s;
+        }
+
+        .showcase-item:hover .showcase-overlay {
+            opacity: 1;
+        }
+
+        .showcase-overlay h3 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .showcase-overlay p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .category-section {
+            padding: 6rem 2rem;
+        }
+
+        .category-section:nth-child(even) {
+            background: var(--black-light);
+        }
+
+        .category-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--gold);
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-title i {
+            font-size: 2.5rem;
+        }
+
+        /* Bouton Discord */
+        .discord-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1.8rem 3.5rem;
+            background: linear-gradient(135deg, #5865F2 0%, #4752C4 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 50px rgba(88, 101, 242, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discord-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .discord-cta:hover::before {
+            left: 100%;
+        }
+
+        .discord-cta:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 70px rgba(88, 101, 242, 0.6);
+        }
+
+        .discord-cta i {
+            font-size: 2rem;
+            animation: bounce-icon 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce-icon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .discord-info {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .contact-section-discord {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, var(--black) 0%, var(--black-light) 100%);
+        }
+
+        .contact-content-discord {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .social-links-discord {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--gold);
+            transition: all 0.4s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: translateY(-8px) rotate(360deg);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+        }
+
+        .coming-soon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 2px dashed rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000027-45eab45ead/logo%20maison%20lynz.webp?ph=310ce882a6" alt="Maison Lynz">
+                <span>Maison Lynz</span>
+            </a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#accueil" class="nav-link">Accueil</a></li>
+                <li><a href="montage.html" class="nav-link">Montage Vidéo</a></li>
+                <li><a href="graphisme.html" class="nav-link">Graphisme</a></li>
+                <li><a href="index.html#faq" class="nav-link">FAQ</a></li>
+                <li><a href="#contact" class="nav-link cta-nav">Contact</a></li>
+            </ul>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" style="min-height: 60vh; padding: 10rem 2rem 4rem;">
+        <div class="hero-bg">
+            <div class="particles" id="particles"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-video"></i> Montage Vidéo
+            </div>
+            
+            <h1 style="font-size: clamp(2.5rem, 8vw, 5rem);">
+                Nos <span class="gradient-text">Montages Vidéo</span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                Long format, Court format, Motion design, Edit & 3D
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="index.html" class="btn-secondary">
+                    <span><i class="fas fa-arrow-left"></i> Retour</span>
+                </a>
+                <a href="#contact" class="btn-primary">
+                    <span>Nous contacter</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Long Format -->
+    <section class="category-section">
+        <div class="container">
+            <h2 class="category-title">
+                <i class="fas fa-film"></i> Long Format
+            </h2>
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <iframe src="https://www.youtube.com/embed/PdtS3sF4R7E" allowfullscreen></iframe>
+                </div>
+                <div class="showcase-item">
+                    <iframe src="https://www.youtube.com/embed/FLFAJsEMmCU" allowfullscreen></iframe>
+                </div>
+                <div class="showcase-item">
+                    <iframe src="https://www.youtube.com/embed/PDWOpuQCA7k" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Court Format -->
+    <section class="category-section">
+        <div class="container">
+            <h2 class="category-title">
+                <i class="fas fa-mobile-alt"></i> Court Format
+            </h2>
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000043-9273492737/700/users_cmhur6s4n03sopv019cty3crf_2AW6XjO4eXaIQIwR-image%20%281%29.webp?ph=310ce882a6" alt="Short">
+                    <div class="showcase-overlay">
+                        <h3>Short #1</h3>
+                        <p>Court format dynamique</p>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000040-0685306855/700/users_cmhur6s4n03sopv019cty3crf_ueYMsHjFBghKCZbw-image-6.webp?ph=310ce882a6" alt="Short">
+                    <div class="showcase-overlay">
+                        <h3>Short #2</h3>
+                        <p>Contenu vertical optimisé</p>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000047-0050100503/700/users_cmhur6s4n03sopv019cty3crf_6eDmqxejKxvppprl-image.webp?ph=310ce882a6" alt="Short">
+                    <div class="showcase-overlay">
+                        <h3>Short #3</h3>
+                        <p>Format viral</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Motion Design -->
+    <section class="category-section">
+        <div class="container">
+            <h2 class="category-title">
+                <i class="fas fa-palette"></i> Motion Design
+            </h2>
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <iframe src="https://new.express.adobe.com/webpage/AClukGQZ1isY2" style="height: 400px;"></iframe>
+                </div>
+                <div class="showcase-item">
+                    <a href="https://www.behance.net/gallery/228814125/BWT-Eco-Uv#moodboard" target="_blank">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80" alt="Motion Design">
+                        <div class="showcase-overlay">
+                            <h3>BWT Eco UV</h3>
+                            <p>Voir sur Behance</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="showcase-item">
+                    <a href="https://www.instagram.com/reel/DOMKpzjCC0Q/" target="_blank">
+                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80" alt="Motion Design">
+                        <div class="showcase-overlay">
+                            <h3>Instagram Reel</h3>
+                            <p>Voir sur Instagram</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edit -->
+    <section class="category-section">
+        <div class="container">
+            <h2 class="category-title">
+                <i class="fas fa-cut"></i> Edit
+            </h2>
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <iframe src="https://www.youtube.com/embed/FLFAJsEMmCU" allowfullscreen></iframe>
+                </div>
+                <div class="showcase-item">
+                    <iframe src="https://www.youtube.com/embed/PdtS3sF4R7E" allowfullscreen></iframe>
+                </div>
+                <div class="showcase-item">
+                    <iframe src="https://www.youtube.com/embed/JKwInWBI0ik" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D -->
+    <section class="category-section">
+        <div class="container">
+            <h2 class="category-title">
+                <i class="fas fa-cube"></i> 3D
+            </h2>
+            <div class="coming-soon">
+                <i class="fas fa-hourglass-half" style="margin-right: 1rem;"></i>
+                Coming Soon...
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Discord -->
+    <section id="contact" class="contact-section-discord">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Collaboration</span>
+                <h2>Prêt à démarrer votre projet ?</h2>
+                <p class="section-description">
+                    Rejoignez notre serveur Discord et ouvrez un ticket
+                </p>
+            </div>
+            
+            <div class="contact-content-discord">
+                <a href="https://discord.com/channels/1447148639033233572/@home" target="_blank" class="discord-cta">
+                    <i class="fab fa-discord"></i>
+                    <span>Ouvrir un ticket Discord</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                
+                <p class="discord-info">
+                    <i class="fas fa-info-circle"></i> Cliquez pour rejoindre notre serveur et créer un ticket
+                </p>
+
+                <div class="social-links-discord">
+                    <a href="https://www.instagram.com/maisonlynz/" target="_blank" class="social-link" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@maisonlynz" target="_blank" class="social-link" title="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@MaisonLynz" target="_blank" class="social-link" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://x.com/LynzMaison20920" target="_blank" class="social-link" title="X (Twitter)">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    <a href="mailto:maisonlynzagency@gmail.com" class="social-link" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <img src="https://310ce882a6.cbaul-cdnwnd.com/525b7c82d64082b2b58c08e567f85a9f/200000027-45eab45ead/logo%20maison%20lynz.webp?ph=310ce882a6" alt="Logo">
+                        <span>Maison Lynz</span>
+                    </div>
+                    <p>© 2025 Maison Lynz - Tous droits réservés</p>
+                    <p class="footer-tagline">Design Graphique • Montage Vidéo • Création Visuelle</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Navigation</h4>
+                        <a href="index.html#accueil">Accueil</a>
+                        <a href="index.html#faq">FAQ</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Services</h4>
+                        <a href="montage.html">Montage Vidéo</a>
+                        <a href="graphisme.html">Graphisme</a>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Réseaux</h4>
+                        <a href="https://www.instagram.com/maisonlynz/" target="_blank">Instagram</a>
+                        <a href="https://www.tiktok.com/@maisonlynz" target="_blank">TikTok</a>
+                        <a href="https://www.youtube.com/@MaisonLynz" target="_blank">YouTube</a>
+                        <a href="https://x.com/LynzMaison20920" target="_blank">X (Twitter)</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Créé avec passion par Maison Lynz</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

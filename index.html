@@ -3,449 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mpxdsn Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Courier New', monospace;
-            background: #0a0e27;
-            color: #e0e0e0;
-            overflow-x: hidden;
-        }
-
-        #mountain-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            opacity: 0.6;
-        }
-
-        .content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            padding: 80px 20px 40px;
-            margin-bottom: 60px;
-        }
-
-        .logo-container {
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 5px solid #00ff88;
-            box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            object-fit: cover;
-            /* Remplace l'URL ci-dessous par ton logo */
-            background: linear-gradient(135deg, #1a1f3a, #00ff88);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4em;
-            font-weight: bold;
-            color: #0a0e27;
-            margin: 0 auto;
-        }
-
-        .logo:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 0 60px rgba(0, 255, 136, 0.9);
-        }
-
-        .subtitle {
-            font-size: 1.8em;
-            color: #00ff88;
-            margin-top: 20px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-        }
-
-        .discord-info {
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: #7289da;
-            background: rgba(114, 137, 218, 0.1);
-            padding: 15px 30px;
-            border-radius: 50px;
-            display: inline-block;
-            border: 2px solid #7289da;
-        }
-
-        .section {
-            background: rgba(20, 25, 45, 0.9);
-            padding: 40px;
-            margin: 30px 0;
-            border-radius: 15px;
-            border: 2px solid #00ff88;
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-        }
-
-        h2 {
-            font-size: 2.5em;
-            color: #00ff88;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .project-card {
-            background: linear-gradient(135deg, #1a1f3a 0%, #2a2f4a 100%);
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #00ff88;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .project-card:hover::before {
-            left: 100%;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.4);
-            border-color: #00ffff;
-        }
-
-        .project-card h3 {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            color: #00ff88;
-        }
-
-        .project-screenshot {
-            width: 100%;
-            height: 200px;
-            background: rgba(0, 255, 136, 0.1);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #00ff88;
-            border: 2px dashed #00ff88;
-            font-size: 0.9em;
-        }
-
-        .skill-item {
-            background: rgba(30, 35, 55, 0.8);
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 10px;
-            border-left: 5px solid #00ff88;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .skill-item:hover {
-            transform: translateX(20px);
-            background: rgba(0, 255, 136, 0.1);
-            border-left-width: 10px;
-        }
-
-        .skill-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.3em;
-            color: #00ff88;
-            font-weight: bold;
-        }
-
-        .skill-toggle {
-            color: #00ffff;
-            font-size: 1.5em;
-        }
-
-        .skill-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-            margin-top: 15px;
-            color: #b0b0b0;
-            line-height: 1.8;
-        }
-
-        .skill-details.active {
-            max-height: 500px;
-        }
-
-        .skill-level {
-            display: inline-block;
-            padding: 5px 15px;
-            background: rgba(0, 255, 136, 0.2);
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin-left: 10px;
-            color: #00ff88;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #00ff88;
-            font-size: 1.2em;
-            margin-top: 60px;
-        }
-
-        @media (max-width: 768px) {
-            .logo {
-                width: 150px;
-                height: 150px;
-                font-size: 3em;
-            }
-            
-            h2 {
-                font-size: 2em;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <meta name="description" content="Portfolio de CodeLine, developpeur web, createur Roblox Studio et passionne de scripting, cybersecurite et modding.">
+    <title>CodeLine | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="mountain-canvas"></canvas>
-    
-    <div class="content">
-        <div class="container">
-            <header>
-                <div class="logo-container">
-                    <div class="logo">MP</div>
-                </div>
-                <p class="subtitle">Mpxdsn / Code Line</p>
-                <div class="discord-info">Discord: mpxdsn_24048</div>
-            </header>
+    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="page-orb orb-one" aria-hidden="true"></div>
+    <div class="page-orb orb-two" aria-hidden="true"></div>
+    <div class="page-orb orb-three" aria-hidden="true"></div>
 
-            <section class="section">
-                <h2>Mes Projets</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <h3>Horizon</h3>
-                        <p>Interface moderne avec navigation fluide et design minimaliste. Menu latéral et système de call-to-action intégré.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>Lya - Assistant IA</h3>
-                        <p>Assistant personnel intelligent avec interface chat moderne. Design violet/rose avec gestion de conversations et commandes vocales.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>Site de Vente de Sites Web</h3>
-                        <p>Marketplace pour acheter et vendre des sites web avec système de paiement sécurisé.</p>
-                    </div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#accueil" class="brand">
+                <span class="brand-mark" aria-hidden="true">
+                    <img src="hero-codeline-night.png" alt="Photo de profil CodeLine" class="brand-avatar">
+                </span>
+                <div>
+                    <strong>CodeLine</strong>
+                    <span>Creative Developer</span>
                 </div>
-            </section>
+            </a>
 
-            <section class="section">
-                <h2>Compétences</h2>
-                
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span>HTML <span class="skill-level">3 ans</span></span>
-                        <span class="skill-toggle">+</span>
-                    </div>
-                    <div class="skill-details">
-                        Le langage de base du web. Je construis des pages structurées, responsive et optimisées. Je connais les bonnes pratiques pour rendre les sites accessibles et bien référencés.
-                    </div>
-                </div>
+            <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span>Python <span class="skill-level">1.5 ans</span></span>
-                        <span class="skill-toggle">+</span>
-                    </div>
-                    <div class="skill-details">
-                        Mon langage préféré pour coder des scripts, automatiser des tâches et développer des backends. Simple mais puissant, parfait pour résoudre plein de problèmes différents.
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span>Minecraft Modding <span class="skill-level">Débutant</span></span>
-                        <span class="skill-toggle">+</span>
-                    </div>
-                    <div class="skill-details">
-                        Je crée des mods en Java pour Minecraft. C'est un bon moyen d'apprendre la programmation objet et de manipuler une grosse codebase existante.
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span>Cybersécurité (White Hat) <span class="skill-level">En cours</span></span>
-                        <span class="skill-toggle">+</span>
-                    </div>
-                    <div class="skill-details">
-                        J'apprends le pentesting éthique et la sécurité informatique. L'objectif : trouver les failles avant les méchants et aider à sécuriser les systèmes.
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span>Intelligence Artificielle <span class="skill-level">En cours</span></span>
-                        <span class="skill-toggle">+</span>
-                    </div>
-                    <div class="skill-details">
-                        Je me forme au Machine Learning et aux réseaux neuronaux. Je teste différents modèles et j'expérimente avec les données pour créer des projets IA.
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span>Roblox Studio <span class="skill-level">Actif</span></span>
-                        <span class="skill-toggle">+</span>
-                    </div>
-                    <div class="skill-details">
-                        Je fais partie de Croquette Studio. Je code en Lua pour créer des jeux, des systèmes de gameplay et des environnements 3D sur Roblox.
-                    </div>
-                </div>
-            </section>
-
-            <footer>
-                © 2024 Mpxdsn - Code Line
-            </footer>
+            <div class="nav-menu" id="navMenu">
+                <a href="#accueil" class="nav-link">Accueil</a>
+                <a href="#competences" class="nav-link">Competences</a>
+                <a href="#projets" class="nav-link">Projets</a>
+                <a href="#tarifs" class="nav-link">Tarifs</a>
+                <a href="#contact" class="nav-link nav-cta">Contact</a>
+            </div>
         </div>
-    </div>
+    </nav>
 
-    <script>
-        // Animation de la montagne avec personnage
-        const canvas = document.getElementById('mountain-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    <main>
+        <section class="hero" id="accueil">
+            <div class="hero-scene" aria-hidden="true">
+                <div class="hero-illustration"></div>
+                <div class="hero-night-overlay"></div>
+                <div class="moon"></div>
+                <div class="stars" id="stars"></div>
+                <div class="shooting-stars">
+                    <span class="shooting-star"></span>
+                    <span class="shooting-star"></span>
+                    <span class="shooting-star"></span>
+                </div>
+            </div>
+            <div class="hero-grid" aria-hidden="true"></div>
+            <div class="particles" id="particles"></div>
 
-        let characterX = 50;
-        let characterY = canvas.height - 50;
-        let mountainProgress = 0;
+            <div class="container hero-layout">
+                <div class="hero-copy" data-reveal>
+                    <span class="eyebrow">
+                        <i class="fa-solid fa-sparkles"></i>
+                        Portfolio interactif nouvelle generation
+                    </span>
+                    <h1>
+                        CodeLine
+                        <span>developpe des experiences web qui frappent fort.</span>
+                    </h1>
+                    <p class="hero-text">
+                        Je m'appelle <strong>CodeLine</strong>, et mon alias est <strong>mpxdsn</strong>. Je cree des sites, des interfaces, des scripts et des systemes interactifs avec une approche claire:
+                        un rendu style, rapide, propre et pense pour marquer les visiteurs.
+                    </p>
 
-        function drawMountain(x, y, width, height, color) {
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.lineTo(x + width / 2, y - height);
-            ctx.lineTo(x + width, y);
-            ctx.closePath();
-            ctx.fillStyle = color;
-            ctx.fill();
-            ctx.strokeStyle = '#00ff88';
-            ctx.lineWidth = 2;
-            ctx.stroke();
-        }
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn btn-primary">
+                            <span>Me contacter</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#projets" class="btn btn-secondary">
+                            <span>Voir mes projets</span>
+                            <i class="fa-solid fa-layer-group"></i>
+                        </a>
+                        <a href="https://paypal.me/MaximePruvost562" target="_blank" rel="noreferrer" class="btn btn-support">
+                            <span>Me soutenir</span>
+                            <i class="fa-brands fa-paypal"></i>
+                        </a>
+                    </div>
 
-        function drawCharacter(x, y, walking) {
-            const offset = walking ? Math.sin(Date.now() / 100) * 2 : 0;
-            
-            ctx.fillStyle = '#00ff88';
-            ctx.fillRect(x - 8, y - 20, 16, 20);
-            ctx.fillRect(x - 6, y - 30, 12, 10);
-            ctx.fillRect(x - 8, y, 6, 10 + offset);
-            ctx.fillRect(x + 2, y, 6, 10 - offset);
-            ctx.fillRect(x - 12, y - 15, 4, 10);
-            ctx.fillRect(x + 8, y - 15, 4, 10);
-        }
+                    <div class="audio-player" data-reveal>
+                        <button class="audio-toggle" id="audioToggle" type="button" aria-label="Lire la musique">
+                            <i class="fa-solid fa-play"></i>
+                            <span>Couper la musique</span>
+                        </button>
+                        <audio id="heroAudio" preload="auto" autoplay loop>
+                            <source src="skwlkr-proschanie.mp3" type="audio/mpeg">
+                        </audio>
+                    </div>
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            drawMountain(100, canvas.height, 300, 150, 'rgba(0, 100, 150, 0.3)');
-            drawMountain(350, canvas.height, 400, 250, 'rgba(0, 150, 200, 0.3)');
-            drawMountain(700, canvas.height, 500, 400, 'rgba(0, 200, 255, 0.3)');
-            drawMountain(canvas.width - 600, canvas.height, 600, 600, 'rgba(0, 255, 136, 0.3)');
-            
-            mountainProgress += 0.3;
-            if (mountainProgress > canvas.width + 200) {
-                mountainProgress = 0;
-                characterX = 50;
-                characterY = canvas.height - 50;
-            }
-            
-            characterX = 50 + mountainProgress * 0.8;
-            
-            if (characterX < 250) {
-                characterY = canvas.height - 50 - (characterX - 50) * 0.5;
-            } else if (characterX < 550) {
-                characterY = canvas.height - 150 - (characterX - 250) * 0.6;
-            } else if (characterX < 950) {
-                characterY = canvas.height - 330 - (characterX - 550) * 0.7;
-            } else {
-                characterY = canvas.height - 610 - (characterX - 950) * 0.9;
-            }
-            
-            drawCharacter(characterX, characterY, true);
-            
-            requestAnimationFrame(animate);
-        }
+                    <div class="hero-metrics">
+                        <article class="metric-card" data-reveal>
+                            <strong data-counter="3">0</strong>
+                            <span>ans en HTML</span>
+                        </article>
+                        <article class="metric-card" data-reveal>
+                            <strong data-counter="1.5">0</strong>
+                            <span>ans en Python</span>
+                        </article>
+                        <article class="metric-card" data-reveal>
+                            <strong data-counter="100">0</strong>
+                            <span>euros, tarif de base</span>
+                        </article>
+                    </div>
+                </div>
 
-        animate();
+                <div class="hero-panel" data-reveal>
+                    <div class="hero-card hero-card-main">
+                        <div class="chip-row">
+                            <span class="chip"><i class="fa-brands fa-discord"></i> mpxdsn_24048</span>
+                            <span class="chip"><i class="fa-solid fa-shield-halved"></i> White Hat en cours</span>
+                        </div>
 
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+                        <div class="identity-stack">
+                            <p class="identity-label">Profil creatif</p>
+                            <h2>Developpeur web, scripter Python et builder d'univers interactifs.</h2>
+                            <p>
+                                Je travaille sur des sites vitrines, des automatisations, des systemes Roblox Studio et des experimentations autour du modding Minecraft.
+                            </p>
+                        </div>
 
-        document.querySelectorAll('.skill-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const details = item.querySelector('.skill-details');
-                const toggle = item.querySelector('.skill-toggle');
-                
-                details.classList.toggle('active');
-                toggle.textContent = details.classList.contains('active') ? '−' : '+';
-            });
-        });
+                        <div class="signal-bars" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
 
-        const logo = document.querySelector('.logo');
-        logo.addEventListener('mousemove', (e) => {
-            const rect = logo.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            
-            logo.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.1) rotate(${x * 0.05}deg)`;
-        });
+                    <div class="hero-card hero-card-side" data-reveal>
+                        <p class="card-kicker">Disponible pour</p>
+                        <ul class="focus-list">
+                            <li>Portfolio premium</li>
+                            <li>Landing page impactante</li>
+                            <li>Scripting & automatisation</li>
+                            <li>Gameplay Roblox Studio</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-        logo.addEventListener('mouseleave', () => {
-            logo.style.transform = 'translate(0, 0) scale(1) rotate(0deg)';
-        });
-    </script>
+            <a href="#competences" class="scroll-indicator" aria-label="Descendre vers les competences">
+                <span></span>
+            </a>
+        </section>
+
+        <section class="section intro-section" id="apropos">
+            <div class="container section-shell">
+                <div class="section-heading" data-reveal>
+                    <span class="section-tag">A propos</span>
+                    <h2>Je construis des projets qui melangent code, design et energie.</h2>
+                </div>
+
+                <div class="intro-grid">
+                    <article class="glass-card statement-card" data-reveal>
+                        <p>
+                            Mon style, c'est des interfaces modernes, une presence visuelle forte et une vraie intention derriere chaque detail. J'aime quand un site bouge, respire et donne instantanement envie de rester.
+                        </p>
+                    </article>
+
+                    <article class="glass-card statement-card alt" data-reveal>
+                        <p>
+                            J'ai notamment realise ce site:
+                            <a href="https://mezzmonteur-ux.github.io/mezz.monteur.io/" target="_blank" rel="noreferrer">mezzmonteur-ux.github.io/mezz.monteur.io</a>
+                            et bien d'autres projets orientes web, scripting et univers de jeu.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="competences">
+            <div class="container section-shell">
+                <div class="section-heading" data-reveal>
+                    <span class="section-tag">Competences</span>
+                    <h2>Des bases solides, une montee en niveau constante, et l'envie d'aller plus loin sur chaque projet.</h2>
+                </div>
+
+                <div class="skills-grid">
+                    <article class="skill-card" data-reveal>
+                        <div class="skill-top">
+                            <span class="skill-icon"><i class="fa-brands fa-html5"></i></span>
+                            <div>
+                                <h3>HTML</h3>
+                                <p>3 ans</p>
+                            </div>
+                        </div>
+                        <p>Le langage de base du web. Je construis des pages structurees, responsive, accessibles et optimisees pour un rendu propre sur tous les ecrans.</p>
+                    </article>
+
+                    <article class="skill-card" data-reveal>
+                        <div class="skill-top">
+                            <span class="skill-icon"><i class="fa-brands fa-python"></i></span>
+                            <div>
+                                <h3>Python</h3>
+                                <p>1.5 ans</p>
+                            </div>
+                        </div>
+                        <p>Mon langage prefere pour creer des scripts, automatiser des taches et developper des logiques backend simples mais efficaces.</p>
+                    </article>
+
+                    <article class="skill-card" data-reveal>
+                        <div class="skill-top">
+                            <span class="skill-icon"><i class="fa-solid fa-cubes"></i></span>
+                            <div>
+                                <h3>Minecraft Modding</h3>
+                                <p>Debutant</p>
+                            </div>
+                        </div>
+                        <p>Je cree des mods Java pour Minecraft. C'est un excellent terrain pour progresser en programmation orientee objet et comprendre de grosses codebases.</p>
+                    </article>
+
+                    <article class="skill-card" data-reveal>
+                        <div class="skill-top">
+                            <span class="skill-icon"><i class="fa-solid fa-user-shield"></i></span>
+                            <div>
+                                <h3>Cybersecurite</h3>
+                                <p>White Hat en cours</p>
+                            </div>
+                        </div>
+                        <p>Je continue de developper mes connaissances en securite offensive et defensive avec une approche ethique, curieuse et tournee vers l'apprentissage.</p>
+                    </article>
+
+                    <article class="skill-card featured" data-reveal>
+                        <div class="skill-top">
+                            <span class="skill-icon"><i class="fa-solid fa-gamepad"></i></span>
+                            <div>
+                                <h3>Roblox Studio</h3>
+                                <p>Actif</p>
+                            </div>
+                        </div>
+                        <p>Je fais partie de Croquette Studio. Je code en Lua pour creer des jeux, des systemes de gameplay et des environnements 3D sur Roblox, et bien d'autres idees en preparation.</p>
+                    </article>
+
+                    <article class="skill-card" data-reveal>
+                        <div class="skill-top">
+                            <span class="skill-icon"><i class="fa-solid fa-plus"></i></span>
+                            <div>
+                                <h3>Et bien d'autres</h3>
+                                <p>En evolution</p>
+                            </div>
+                        </div>
+                        <p>Je touche aussi au design d'interface, aux effets visuels, a l'organisation de projets et a la creation d'experiences web plus immersives que la moyenne.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section timeline-section" id="projets">
+            <div class="container section-shell">
+                <div class="section-heading" data-reveal>
+                    <span class="section-tag">Projets</span>
+                    <h2>Quelques directions sur lesquelles je travaille et que je peux realiser pour toi.</h2>
+                </div>
+
+                <div class="project-showcase">
+                    <article class="project-panel large" data-reveal>
+                        <div class="project-label">Site vitrine / Portfolio</div>
+                        <h3>Interfaces visuelles avec une vraie identite</h3>
+                        <p>Des pages qui ne ressemblent pas a des templates copies-colles. Je cree des portfolios et des landing pages avec animation, hierarchie visuelle et presence.</p>
+                    </article>
+
+                    <article class="project-panel" data-reveal>
+                        <div class="project-label">Python</div>
+                        <h3>Scripts utiles et automatisations</h3>
+                        <p>Outils simples, rapides et efficaces pour gagner du temps sur des taches repetitives ou pour structurer un petit backend.</p>
+                    </article>
+
+                    <article class="project-panel" data-reveal>
+                        <div class="project-label">Roblox Studio</div>
+                        <h3>Systemes de gameplay et logique Lua</h3>
+                        <p>Creation de mecaniques, systemes interactifs et environnements orientes jeu au sein de projets d'equipe.</p>
+                    </article>
+
+                    <article class="project-panel" data-reveal>
+                        <div class="project-label">Exploration</div>
+                        <h3>Modding Minecraft et cybersecurite</h3>
+                        <p>Deux terrains parfaits pour apprendre en profondeur, comprendre de gros systemes et repousser mes competences techniques.</p>
+                    </article>
+                </div>
+
+                <div class="timeline" data-reveal>
+                    <div class="timeline-line"></div>
+                    <article class="timeline-item">
+                        <span class="timeline-dot"></span>
+                        <div>
+                            <p class="timeline-title">3 ans de HTML</p>
+                            <p>Structure, responsive, accessibilite, SEO et bases solides pour tous types de sites.</p>
+                        </div>
+                    </article>
+                    <article class="timeline-item">
+                        <span class="timeline-dot"></span>
+                        <div>
+                            <p class="timeline-title">1.5 ans de Python</p>
+                            <p>Scripting, automatisation et logique pragmatique pour faire avancer un projet rapidement.</p>
+                        </div>
+                    </article>
+                    <article class="timeline-item">
+                        <span class="timeline-dot"></span>
+                        <div>
+                            <p class="timeline-title">Roblox Studio actif</p>
+                            <p>Creation Lua et integration dans des univers interactifs avec Croquette Studio.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section pricing-section" id="tarifs">
+            <div class="container section-shell">
+                <div class="section-heading" data-reveal>
+                    <span class="section-tag">Tarifs</span>
+                    <h2>Des prestations accessibles pour commencer proprement, puis evoluer selon le projet.</h2>
+                </div>
+
+                <div class="pricing-grid">
+                    <article class="price-card starter" data-reveal>
+                        <p class="price-kicker">Point de depart</p>
+                        <h3>A partir de 100&euro;</h3>
+                        <p>Ideal pour une base serieuse: landing page, page perso, petit site vitrine ou intervention ciblee.</p>
+                        <ul>
+                            <li>Design travaille</li>
+                            <li>Responsive mobile</li>
+                            <li>Paiement via PayPal</li>
+                        </ul>
+                    </article>
+
+                    <article class="price-card premium" data-reveal>
+                        <p class="price-kicker">Sur mesure</p>
+                        <h3>Projet evolutif</h3>
+                        <p>Le prix monte selon le nombre de sections, les animations, les systemes interactifs et les besoins specifiques.</p>
+                        <ul>
+                            <li>Direction visuelle plus poussee</li>
+                            <li>Animations premium</li>
+                            <li>Fonctionnalites personnalisees</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact-section" id="contact">
+            <div class="container contact-shell">
+                <div class="contact-copy" data-reveal>
+                    <span class="section-tag">Contact</span>
+                    <h2>Tu veux un site qui se remarque vraiment ? On peut lancer ca.</h2>
+                    <p>
+                        Pour discuter d'un projet, demander un devis ou parler d'une idee, le plus simple est de me contacter sur Discord. Je peux aussi preparer des prestations payables via PayPal, avec un tarif de depart a 100&euro;.
+                    </p>
+                </div>
+
+                <div class="contact-card-main" data-reveal>
+                    <a href="https://discord.com/app" target="_blank" rel="noreferrer" class="discord-button">
+                        <i class="fa-brands fa-discord"></i>
+                        <span>Discord: mpxdsn_24048</span>
+                    </a>
+
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span>Nom</span>
+                            <strong>CodeLine</strong>
+                        </div>
+                        <div class="contact-item">
+                            <span>Alias</span>
+                            <strong>mpxdsn</strong>
+                        </div>
+                        <div class="contact-item">
+                            <span>Paiement</span>
+                            <strong>PayPal</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-shell">
+            <div>
+                <p class="footer-title">CodeLine</p>
+                <p class="footer-text">Portfolio personnel designe et code par moi-meme.</p>
+            </div>
+            <a href="#accueil" class="footer-link">Retour en haut</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

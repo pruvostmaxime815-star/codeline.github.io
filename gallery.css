@@ -1,0 +1,430 @@
+
+.page-hero {
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
+    padding: 10rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.5rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--gold);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.page-hero h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    letter-spacing: -2px;
+}
+
+.page-hero p {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--gray);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--gold);
+    border-radius: 50px;
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.btn-back:hover {
+    background: rgba(212, 175, 55, 0.2);
+    transform: translateX(-5px);
+}
+
+.info-section {
+    padding: 6rem 2rem;
+    background: var(--black);
+}
+
+.info-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.info-text h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+}
+
+.info-text p {
+    color: var(--gray);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.info-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.8rem;
+    background: rgba(212, 175, 55, 0.05);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.feature:hover {
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateX(5px);
+}
+
+.feature i {
+    color: var(--gold);
+    font-size: 1.2rem;
+}
+
+.feature span {
+    color: var(--white);
+    font-size: 0.95rem;
+}
+
+.info-image {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.info-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.info-image:hover img {
+    transform: scale(1.05);
+}
+
+/* ===== section galerie  ===== */
+.gallery-section {
+    padding: 6rem 2rem;
+    overflow: hidden;
+}
+
+.gallery-title {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.gallery-title i {
+    font-size: 2rem;
+}
+
+.gallery-scroll-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 2rem 0;
+}
+
+.gallery-scroll-wrapper::before,
+.gallery-scroll-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.gallery-scroll-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, var(--black), transparent);
+}
+
+.gallery-scroll-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, var(--black), transparent);
+}
+
+.dark-section .gallery-scroll-wrapper::before {
+    background: linear-gradient(to right, var(--black-light), transparent);
+}
+
+.dark-section .gallery-scroll-wrapper::after {
+    background: linear-gradient(to left, var(--black-light), transparent);
+}
+
+.gallery-scroll {
+    display: flex;
+    gap: 2rem;
+    animation: scroll-left 40s linear infinite;
+    width: fit-content;
+}
+
+.gallery-scroll:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.gallery-scroll img {
+    height: 250px;
+    width: auto;
+    border-radius: 15px;
+    object-fit: cover;
+    transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
+}
+
+.gallery-scroll img:hover {
+    transform: scale(1.05) translateY(-10px);
+    box-shadow: 0 15px 50px rgba(212, 175, 55, 0.4);
+    z-index: 10;
+}
+
+.playlists-section {
+    padding: 6rem 2rem;
+    background: var(--black-light);
+}
+
+.youtube-playlists {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.playlist-btn {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: rgba(212, 175, 55, 0.05);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 20px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.playlist-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.playlist-btn:hover::before {
+    left: 100%;
+}
+
+.playlist-btn:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: var(--gold);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 50px rgba(212, 175, 55, 0.3);
+}
+
+.playlist-btn > i:first-child {
+    font-size: 3rem;
+    color: var(--gold);
+    min-width: 50px;
+}
+
+.playlist-btn div {
+    flex: 1;
+    text-align: left;
+}
+
+.playlist-btn h3 {
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.playlist-btn p {
+    color: var(--gray);
+    font-size: 0.95rem;
+}
+
+.playlist-btn > i:last-child {
+    font-size: 1.2rem;
+    color: var(--gold);
+    transition: var(--transition);
+}
+
+.playlist-btn:hover > i:last-child {
+    transform: translateX(5px);
+}
+
+.cta-section {
+    padding: 8rem 2rem;
+    background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.cta-section h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--gold);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-section p {
+    font-size: 1.2rem;
+    color: var(--gray);
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-section .btn-primary {
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 968px) {
+    .page-hero {
+        min-height: 40vh;
+        padding: 8rem 2rem 3rem;
+    }
+    
+    .info-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .info-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-scroll img {
+        height: 200px;
+    }
+    
+    .gallery-section {
+        padding: 4rem 1rem;
+    }
+    
+    .cta-section {
+        padding: 5rem 1rem;
+    }
+    
+    .btn-back {
+        font-size: 0.85rem;
+        padding: 0.6rem 1.2rem;
+    }
+    
+    .youtube-playlists {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .gallery-scroll img {
+        height: 150px;
+    }
+    
+    .gallery-scroll {
+        gap: 1rem;
+    }
+    
+    .gallery-title {
+        font-size: 1.5rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .playlist-btn {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .playlist-btn div {
+        text-align: center;
+    }
+}
